@@ -1,15 +1,30 @@
 function handleFormSubmit(event) {
     //event.preventDefault()
-    let name = document.getElementById('InputName').value
-    let email = document.getElementById('InputEmail').value
-    let m1 = document.getElementById('InputSubject').value
-    let m2 = document.getElementById('InputMessage').value
-    $.ajax({
+    if (document.getElementById('InputName').value != "" && document.getElementById('InputEmail').value != "" 
+    && document.getElementById('program_3').value != "" && document.getElementById('InputSubject').value != ""
+    && document.getElementById('InputMessage').value != ""){
+      $.ajax({
         type: 'POST',
         url: 'https://api.telegram.org/bot5469423688:AAFFYjZ5A3dHmdfROAbPyyjyMH1Jx-GBJHI/sendMessage',
-        data: {'chat_id': 456022925, 'text': 'Пришла заявка от ' + name + '\n' + 'Почта: ' + email + '\n-------------\n'
-    + m1 +  '\n-------------\n' + m2}
+        data: {'chat_id': 456022925, 
+        'text': 'Имя: ' + document.getElementById('InputName').value +
+        '\n--------\nПочта: ' + document.getElementById('InputEmail').value + 
+        '\n--------\nРежим: ' + document.getElementById('program_3').value + 
+         '\n--------\nУдобное время и способы связи\n' 
+        + document.getElementById('InputSubject').value +
+        '\n--------\nПочему решил учиться\n' 
+        + document.getElementById('InputMessage').value
+      }
     });
+    document.getElementById('InputName').value = ""
+    document.getElementById('InputEmail').value = ""
+    document.getElementById('program_3').value = ""
+    document.getElementById('InputSubject').value = ""
+    document.getElementById('InputMessage').value = ""
+    document.getElementById('submit').innerHTML= "Отправлено"
+    document.getElementById('submit').className = "btn btn-success";
+    document.getElementById('submit').disabled = true;
+    }
   }
   
   const applicantForm = document.getElementById('contact-form')
